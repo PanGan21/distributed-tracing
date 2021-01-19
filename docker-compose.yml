@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+
+  service_a:
+    build: 
+      context: ./serviceA
+      dockerfile: Dockerfile
+    ports:
+      - 9000:9000
+    environment:
+      DEBUG: "True"
+      SERVICE_B_ENDPOINT: "http://service_b:9001"
+      SERVICE_C_ENDPOINT: "http://service_c:9002"
