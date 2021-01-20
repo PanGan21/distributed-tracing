@@ -12,3 +12,13 @@ services:
       DEBUG: "True"
       SERVICE_B_ENDPOINT: "http://service_b:9001"
       SERVICE_C_ENDPOINT: "http://service_c:9002"
+
+
+  service_b:
+    build: 
+      context: ./serviceB
+      dockerfile: Dockerfile
+    ports:
+      - 9001:9001
+    environment:
+      DEBUG: "True" 

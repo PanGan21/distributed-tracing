@@ -17,13 +17,13 @@ if not service_c_endpoint or not service_b_endpoint:
 @app.before_request
 def before_request():
     """Generate a unique request ID."""
-    flask.request_id = utils.generate_request_id()
+    flask.g.request_id = utils.generate_request_id()
 
 
 @app.after_request
 def after_request(response):
-    """Return the unique ID."""
-    response.headers["REQUEST_ID"] = flask.g.request_id
+    """Return the unique request ID."""
+    response.headers["Request_ID"] = flask.g.request_id
     return response
 
 
@@ -43,19 +43,19 @@ def handle_foo():
     data.update({"foo": "111"})
 
     log.info("Sending request to Service B")
-    resp = requests.post("%s/bar" % service_b_endpoint,
-                         headers={"X-Request-ID": flask.g.request_id})
-    log.info("Service B responded with status code %s and data `%s`",
-             resp.status_code, resp.json())
+    # resp = requests.post("%s/bar" % service_b_endpoint,
+    #                      headers={"X-Request-ID": flask.g.request_id})
+    # log.info("Service B responded with status code %s and data `%s`",
+    #          resp.status_code, resp.json())
 
-    data.update(resp.json())
+    # data.update(resp.json())
 
-    log.info("Sending request to Service C")
-    resp = requests.post("%s/spam" % service_c_endpoint,
-                         headers={"X-Request-ID": flask.g.request_id})
-    log.info("Service C responded with status code %s and data `%s`")
+    # log.info("Sending request to Service C")
+    # resp = requests.post("%s/spam" % service_c_endpoint,
+    #                      headers={"X-Request-ID": flask.g.request_id})
+    # log.info("Service C responded with status code %s and data `%s`")
 
-    data.update(resp.json())
+    # data.update(resp.json())
 
     log.info("The overall response is `%s'", data)
 
