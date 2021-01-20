@@ -32,3 +32,12 @@ services:
     environment:
       DEBUG: "True" 
       SERVICE_D_ENDPOINT: "http://service_d:9003"
+
+  service_d:
+    build: 
+      context: ./serviceD
+      dockerfile: Dockerfile
+    ports:
+      - 9003:9003
+    environment:
+      DEBUG: "True" 
