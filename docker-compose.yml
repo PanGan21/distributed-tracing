@@ -22,3 +22,13 @@ services:
       - 9001:9001
     environment:
       DEBUG: "True" 
+
+  service_c:
+    build: 
+      context: ./serviceC
+      dockerfile: Dockerfile
+    ports:
+      - 9002:9002
+    environment:
+      DEBUG: "True" 
+      SERVICE_D_ENDPOINT: "http://service_d:9003"
